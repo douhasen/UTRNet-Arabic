@@ -50,12 +50,20 @@ def validation(model, criterion, evaluation_loader, converter, opt, device):
 
         start_time = time.time()
         if 'CTC' in opt.Prediction:
+            #print(f'image_size: {image.size()}')
             preds = model(image)
+            #print(f'preds: {preds}')
             forward_time = time.time() - start_time
             preds_size = torch.IntTensor([preds.size(1)] * batch_size)
+            #print(f'preds_size: {preds_size}')
+            #print(preds_size.shape, text_for_loss, length_for_loss)
             cost = criterion(preds.log_softmax(2).permute(1, 0, 2), text_for_loss, preds_size, length_for_loss)
             _, preds_index = preds.max(2)
+            #print(f'preds_index: {preds_index}')
+            #print(f'preds_index_size: {preds_index.size()}')
             preds_str = converter.decode(preds_index.data, preds_size.data)
+            #print(f'preds_str: {preds_str}')
+
         else:
             preds = model(image, text=text_for_pred, is_train=False)
             forward_time = time.time() - start_time
@@ -80,7 +88,8 @@ def validation(model, criterion, evaluation_loader, converter, opt, device):
                 pred_EOS = pred.find('[s]')
                 pred = pred[:pred_EOS]  # prune after "end of sentence" token ([s])
                 pred_max_prob = pred_max_prob[:pred_EOS]
-
+                
+            #print(f'preds: {preds}, gt: {gt}')
             if pred == gt:
                 n_correct += 1
 
@@ -104,7 +113,10 @@ def validation(model, criterion, evaluation_loader, converter, opt, device):
                 confidence_score = 0  # for empty pred case, when prune after "end of sentence" token ([s])
             confidence_score_list.append(confidence_score)
             # print(pred, gt, pred==gt, confidence_score)
+            # print(f'preds: {pred}  gt: {gt}  correct: {pred==gt} confidence_score: {confidence_score}\n')
 
+
+    # print(f'n_correct: {n_correct}')
     accuracy = n_correct / float(length_of_data) * 100
     norm_ED = norm_ED / float(sum_len_gt)
 
@@ -212,7 +224,7 @@ if __name__ == '__main__':
     torch.backends.cudnn.benchmark = False
 
     """ vocab / character number configuration """
-    file = open("UrduGlyphs.txt","r",encoding="utf-8")
+    file = open("ArabGlyphs.txt","r",encoding="utf-8")
     content = file.readlines()
     content = ''.join([str(elem).strip('\n') for elem in content])
     opt.character = content+" "

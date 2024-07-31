@@ -31,6 +31,7 @@ class Model(nn.Module):
         self.stages = {'Feat': opt.FeatureExtraction,
                        'Seq': opt.SequenceModeling,
                        'Pred': opt.Prediction}
+   
 
         """ FeatureExtraction """
         if opt.FeatureExtraction == 'HRNet':
@@ -128,4 +129,6 @@ class Model(nn.Module):
             text = text.to(self.opt.device)
             prediction = self.Prediction(contextual_feature, text, is_train, batch_max_length=self.opt.batch_max_length)
         
+        #print(f'preds_size: {prediction.shape}')
+        #print(f'preds_exp: {prediction[0, 0]}')
         return prediction

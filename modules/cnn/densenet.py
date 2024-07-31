@@ -33,7 +33,7 @@ class Single_level_densenet(nn.Module):
             temp_out = self.conv_list[i](outs[i])
             if i > 0:
                 for j in range(i):
-                    temp_out += outs[j]
+                    temp_out = temp_out+outs[j]
             outs.append(F.relu(self.bn_list[i](temp_out)))
         out_final = outs[-1]
         del outs

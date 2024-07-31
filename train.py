@@ -26,7 +26,31 @@ from utils import Averager, Logger
 from dataset import hierarchical_dataset, AlignCollate
 from utils import CTCLabelConverter, AttnLabelConverter
 
+import wandb
+
+torch.autograd.set_detect_anomaly(True)
+
 def train(opt, device):
+    # start a new wandb run to track this script
+    wandb.init(
+        # set the wandb project where this run will be logged
+        project="UTRNet_Large",
+
+        # track hyperparameters and run metadata
+        config={
+        "architecture": "hybrid CNN-RNN",
+        "dataset": "KHATT Dataset",
+        "feature extraction": opt.FeatureExtraction,
+        "sequence modeling": opt.SequenceModeling,
+        "prediction": opt.Prediction,
+        "optimizer": 'AdaDelta',
+        "epochs": 100,
+        "learning_rate": 1.0,
+        "batch_size": 8,
+        "loss" : "CTC Loss"
+        }
+    )
+
     # opt.num_gpu = 8 # Multi-GPU Training -> Uncomment line 24 & line 63-64
     logger = Logger(f'./saved_models/{opt.exp_name}/log_train.txt')
     opt.device = device
@@ -192,6 +216,7 @@ def train(opt, device):
             optimizer.step()
 
             loss_avg.add(cost)
+
         
         if epoch in reduce_lr:
             scheduler.step()
@@ -205,6 +230,15 @@ def train(opt, device):
             valid_loss, current_accuracy, current_norm_ED, _ = validation(
                 model, criterion, valid_loader, converter, opt, device)
         model.train()
+
+        # Log metrics to WandB
+        wandb.log({
+            "Training loss": loss_avg.val(),
+            "Validation loss": valid_loss,
+            "Accuracy": current_accuracy,
+            "Norm Edit_Distance": current_norm_ED
+        })
+
         # training loss and validation loss
         loss_log = f'[{epoch+1}/{opt.num_epochs}] Train loss: {loss_avg.val():0.5f}, Valid loss: {valid_loss:0.5f}, Elapsed_time: {elapsed_time:0.5f}'
         loss_avg.reset()
@@ -223,6 +257,9 @@ def train(opt, device):
     
     end_time = time.time()
     logger.log("Total time taken for training: " + str(end_time-init_time))
+
+    wandb.finish()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -275,7 +312,7 @@ if __name__ == '__main__':
     os.makedirs(f'./saved_models/{opt.exp_name}', exist_ok=True)
 
     """ vocab / character number configuration """
-    file = open("UrduGlyphs.txt","r",encoding="utf-8")
+    file = open("ArabGlyphs.txt","r",encoding="utf-8")
     content = file.readlines()
     content = ''.join([str(elem).strip('\n') for elem in content])
     opt.character = content+" "
@@ -295,3 +332,4 @@ if __name__ == '__main__':
     print("Device : ", device)
     
     train(opt, device)
+

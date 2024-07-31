@@ -111,7 +111,7 @@ def hierarchical_dataset(root, opt, select_data='/', rand_aug = False):
     """ select_data='/' contains all sub-directory of root directory """
     dataset_list = []
     dataset_log = f'dataset_root:    {root}\t dataset: {select_data[0]}'
-    # print(dataset_log)
+    print(dataset_log)
     dataset_log += '\n'
     for dirpath, dirnames, filenames in os.walk(root+'/'):
         if not dirnames:
@@ -124,7 +124,7 @@ def hierarchical_dataset(root, opt, select_data='/', rand_aug = False):
             if select_flag:
                 dataset = LmdbDataset(dirpath, opt, rand_aug=rand_aug)
                 sub_dataset_log = f'sub-directory:\t/{os.path.relpath(dirpath, root)}\t num samples: {len(dataset)}'
-                # print(sub_dataset_log)
+                print(sub_dataset_log)
                 dataset_log += f'{sub_dataset_log}\n'
                 dataset_list.append(dataset)
 

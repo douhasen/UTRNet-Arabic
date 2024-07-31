@@ -203,19 +203,25 @@ if __name__ == '__main__':
         opt.output_channel = 32
 
     """ vocab / character number configuration """
-    file = open("UrduGlyphs.txt","r",encoding="utf-8")
+    file = open("ArabGlyphs.txt","r",encoding="utf-8")
     content = file.readlines()
     content = ''.join([str(elem).strip('\n') for elem in content])
     opt.character = content+" "
     
-    opt.check_char = ['ا','آ', 'ب', 'پ', 'ت', 'ٹ',
-                      'ث', 'ج', 'چ', 'ح', 'خ',
-                      'د', 'ڈ', 'ذ', 'ر', 'ڑ',
-                      'ز', 'ژ', 'س', 'ش', 'ص',
-                      'ض', 'ط', 'ظ', 'ع', 'غ',
-                      'ف', 'ق', 'ک', 'ك', 'گ',
-                      'ل', 'م', 'ن', 'ں', 'و',
-                      'ہ', 'ھ', 'ء', 'ی', 'ے']
-    device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
+    # opt.check_char = ['ا','آ', 'ب', 'پ', 'ت', 'ٹ',
+    #                   'ث', 'ج', 'چ', 'ح', 'خ',
+    #                   'د', 'ڈ', 'ذ', 'ر', 'ڑ',
+    #                   'ز', 'ژ', 'س', 'ش', 'ص',
+    #                   'ض', 'ط', 'ظ', 'ع', 'غ',
+    #                   'ف', 'ق', 'ک', 'ك', 'گ',
+    #                   'ل', 'م', 'ن', 'ں', 'و',
+    #                   'ہ', 'ھ', 'ء', 'ی', 'ے']
+    opt.check_char = ['ء', 'آ', 'أ', 'إ', 'ا', 'ب', 
+                      'ت', 'ة', 'ث', 'ج', 'ح', 'خ', 
+                      'د', 'ذ', 'ر', 'ز', 'س', 'ش', 
+                      'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 
+                      'ف', 'ق', 'ك', 'ل', 'م', 'ن', 
+                      'ه', 'و', 'ؤ', 'ي', 'ى', 'ئ']
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
     test(opt, device)

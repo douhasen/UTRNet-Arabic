@@ -49,6 +49,8 @@ def createDataset(inputPath, gtFile, outputPath, checkValid=True):
     with open(gtFile, 'r', encoding='utf-8') as data:
         datalist = data.readlines()
 
+    # print(datalist[0])
+    # print(len(datalist))
     nSamples = len(datalist)
     for i in range(nSamples):
         ########################################### Try/Except Added By Abdur ###########################################

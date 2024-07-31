@@ -46,7 +46,7 @@ def main(opt, device):
     transform = NormalizePAD((1, 32, 400))
     img = transform(img)
     img = img.unsqueeze(0)
-    # print(img.shape) # torch.Size([1, 1, 32, 400])
+    print(img.shape) # torch.Size([1, 1, 32, 400])
     img = img.to(device)
     img.requires_grad = True
     
@@ -143,7 +143,7 @@ if __name__== "__main__":
     parser.add_argument('--hidden_size', type=int, default=256, help='Size of the BiLSTM hidden state')
     opt = parser.parse_args()
     """ vocab / character number configuration """
-    file = open("UrduGlyphs.txt","r",encoding="utf-8")
+    file = open("ArabGlyphs.txt","r",encoding="utf-8")
     content = file.readlines()
     content = ''.join([str(elem).strip('\n') for elem in content])
     opt.character = content+" "

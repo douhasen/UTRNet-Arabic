@@ -1,0 +1,45 @@
+program: train.py
+project: UTRNet_Large_sweep
+method: bayes
+metric:
+  goal: minimize
+  name: Validation loss
+parameters:
+  lr:
+    max: 1
+    min: 1e-3
+    distribution: uniform
+  batch_size:
+    values:
+      - 16
+      - 8
+    distribution: categorical
+  num_epochs:
+    values:
+      - 100
+      - 90
+      - 75
+      - 50
+    distribution: categorical
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - ${args_no_boolean_flags}
+  - --train_data 
+  - result/train 
+  - --valid_data 
+  - result/test 
+  - --FeatureExtraction 
+  - HRNet 
+  - --SequenceModeling 
+  - DBiLSTM 
+  - --Prediction 
+  - CTC 
+  - --exp_name 
+  - UTRNet-Large-Sweep 
+  - --device_id 
+  - 0
+  
+
+ 

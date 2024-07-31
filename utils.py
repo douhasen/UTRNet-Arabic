@@ -476,3 +476,8 @@ def draw_feature_map(visual_feature,vis_dir,num_channel=10):
         plt.imshow(visual_feature_for_visualization, cmap='gray', interpolation='nearest')
         plt.axis("off")
         plt.savefig(os.path.join(vis_dir, "channel_{}.png".format(random_channel)), bbox_inches='tight', pad_inches=0)
+
+
+
+
+

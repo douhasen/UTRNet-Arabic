@@ -28,37 +28,37 @@ class InceptionConv(nn.Module):
             nn.MaxPool2d(2),
             nn.Conv2d(in_channels, mid_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(mid_channels),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Conv2d(mid_channels, out_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True)
+            nn.ReLU()
         )
 
         self.double_conv2 = nn.Sequential(
             nn.MaxPool2d(2),
             nn.Conv2d(in_channels, mid_channels, kernel_size=5, padding=2),
             nn.BatchNorm2d(mid_channels),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Conv2d(mid_channels, out_channels, kernel_size=5, padding=2),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True)
+            nn.ReLU()
         )
 
         self.double_conv3 = nn.Sequential(
             nn.MaxPool2d(2),
             nn.Conv2d(in_channels, mid_channels, kernel_size=1, padding=0),
             nn.BatchNorm2d(mid_channels),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
         )
 
         self.double_conv4 = nn.Sequential(
             nn.MaxPool2d(2),
             nn.Conv2d(in_channels, mid_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(mid_channels),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Conv2d(mid_channels, out_channels, kernel_size=1, padding=0),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True)
+            nn.ReLU()
         )
 
     def forward(self, x):
@@ -75,10 +75,10 @@ class DoubleConv(nn.Module):
         self.double_conv = nn.Sequential(
             nn.Conv2d(in_channels, mid_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(mid_channels),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Conv2d(mid_channels, out_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True)
+            nn.ReLU()
         )
 
     def forward(self, x):
