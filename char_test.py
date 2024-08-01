@@ -1,12 +1,3 @@
-"""
-Paper: "UTRNet: High-Resolution Urdu Text Recognition In Printed Documents" presented at ICDAR 2023
-Authors: Abdur Rahman, Arjun Ghosh, Chetan Arora
-GitHub Repository: https://github.com/abdur75648/UTRNet-High-Resolution-Urdu-Text-Recognition
-Project Website: https://abdur75648.github.io/UTRNet/
-Copyright (c) 2023-present: This work is licensed under the Creative Commons Attribution-NonCommercial
-4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/)
-"""
-
 # First, create character-wise accuracy table in a CSV file by running ```char_test.py```
 # Then visualize the result by running ```char_test_vis```
 
@@ -208,14 +199,6 @@ if __name__ == '__main__':
     content = ''.join([str(elem).strip('\n') for elem in content])
     opt.character = content+" "
     
-    # opt.check_char = ['ا','آ', 'ب', 'پ', 'ت', 'ٹ',
-    #                   'ث', 'ج', 'چ', 'ح', 'خ',
-    #                   'د', 'ڈ', 'ذ', 'ر', 'ڑ',
-    #                   'ز', 'ژ', 'س', 'ش', 'ص',
-    #                   'ض', 'ط', 'ظ', 'ع', 'غ',
-    #                   'ف', 'ق', 'ک', 'ك', 'گ',
-    #                   'ل', 'م', 'ن', 'ں', 'و',
-    #                   'ہ', 'ھ', 'ء', 'ی', 'ے']
     opt.check_char = ['ء', 'آ', 'أ', 'إ', 'ا', 'ب', 
                       'ت', 'ة', 'ث', 'ج', 'ح', 'خ', 
                       'د', 'ذ', 'ر', 'ز', 'س', 'ش', 
