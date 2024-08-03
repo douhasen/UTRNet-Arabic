@@ -1,12 +1,3 @@
-"""
-Paper: "UTRNet: High-Resolution Urdu Text Recognition In Printed Documents" presented at ICDAR 2023
-Authors: Abdur Rahman, Arjun Ghosh, Chetan Arora
-GitHub Repository: https://github.com/abdur75648/UTRNet-High-Resolution-Urdu-Text-Recognition
-Project Website: https://abdur75648.github.io/UTRNet/
-Copyright (c) 2023-present: This work is licensed under the Creative Commons Attribution-NonCommercial
-4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/)
-"""
-
 import os
 import sys
 import re
@@ -53,7 +44,6 @@ class Batch_Balanced_Dataset(object):
             """
             The total number of data can be modified with opt.total_data_usage_ratio.
             ex) opt.total_data_usage_ratio = 1 indicates 100% usage, and 0.2 indicates 20% usage.
-            See 4.2 section in our paper.
             """
             number_dataset = int(total_number_dataset * float(opt.total_data_usage_ratio))
             dataset_split = [number_dataset, total_number_dataset - number_dataset]

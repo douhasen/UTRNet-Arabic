@@ -1,12 +1,3 @@
-"""
-Paper: "UTRNet: High-Resolution Urdu Text Recognition In Printed Documents" presented at ICDAR 2023
-Authors: Abdur Rahman, Arjun Ghosh, Chetan Arora
-GitHub Repository: https://github.com/abdur75648/UTRNet-High-Resolution-Urdu-Text-Recognition
-Project Website: https://abdur75648.github.io/UTRNet/
-Copyright (c) 2023-present: This work is licensed under the Creative Commons Attribution-NonCommercial
-4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/)
-"""
-
 import fire
 import os
 import lmdb
@@ -53,7 +44,7 @@ def createDataset(inputPath, gtFile, outputPath, checkValid=True):
     # print(len(datalist))
     nSamples = len(datalist)
     for i in range(nSamples):
-        ########################################### Try/Except Added By Abdur ###########################################
+        ########################################### Try/Except ###########################################
         try :
             imagePath, label = datalist[i].strip('\n').split('\t')
         except :
