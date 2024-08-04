@@ -10,14 +10,14 @@ from datetime import datetime
 import pytz
 import argparse  
 
-# Function to load and preprocess the image
+# Load and preprocess the image
 def load_image(image_file):
     img = Image.open(image_file)
     return img
 
 
 
-# Function to perform OCR prediction
+# Perform OCR prediction
 def predict_text(image, model, converter, device, opt):
     img = image.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
     w, h = img.size
@@ -52,7 +52,7 @@ def main():
         st.image(image, caption='Uploaded Image.', use_column_width=True)
 
         # Load model and configuration
-        opt = load_model_config()  # Function to load model configuration
+        opt = load_model_config() 
         device = torch.device('cpu')
 
         if 'CTC' in opt.Prediction:
@@ -66,13 +66,12 @@ def main():
         model.eval()
         model = model.to(device)
 
-        # Perform prediction
         if st.button('Predict'):
             with st.spinner('Predicting...'):
                 result_text = predict_text(image, model, converter, device, opt)
                 st.write(f'Predicted Text: {result_text}')
 
-# Function to load model configuration (similar to read.py)
+# Load model configuration 
 def load_model_config():
     opt = argparse.Namespace()
     opt.saved_model = "saved_models/UTRNet-Large/best_norm_ED.pth"
@@ -85,7 +84,7 @@ def load_model_config():
     opt.Prediction = "CTC"
     opt.num_fiducial = 20
     opt.input_channel = 1
-    opt.output_channel = 32  # Adjusted based on HRNet feature extraction
+    opt.output_channel = 32  
     opt.hidden_size = 256
 
     # Load characters/vocab

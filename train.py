@@ -1,12 +1,3 @@
-"""
-Paper: "UTRNet: High-Resolution Urdu Text Recognition In Printed Documents" presented at ICDAR 2023
-Authors: Abdur Rahman, Arjun Ghosh, Chetan Arora
-GitHub Repository: https://github.com/abdur75648/UTRNet-High-Resolution-Urdu-Text-Recognition
-Project Website: https://abdur75648.github.io/UTRNet/
-Copyright (c) 2023-present: This work is licensed under the Creative Commons Attribution-NonCommercial
-4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/)
-"""
-
 import os
 import time
 import random
@@ -31,12 +22,11 @@ import wandb
 torch.autograd.set_detect_anomaly(True)
 
 def train(opt, device):
-    # start a new wandb run to track this script
+    
     wandb.init(
-        # set the wandb project where this run will be logged
+        
         project="UTRNet_Large",
-
-        # track hyperparameters and run metadata
+        
         config={
         "architecture": "hybrid CNN-RNN",
         "dataset": "KHATT Dataset",
