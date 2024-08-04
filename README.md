@@ -18,7 +18,8 @@ pip3 install -r requirements.txt -f https://download.pytorch.org/whl/torch_stabl
 ```
 
 ## Dataset
-1. Download KHATT dataset
+1. Download KHATT dataset  
+
 In this project, we use the KHATT dataset for training and evaluating our model. The KHATT dataset is a comprehensive collection of handwritten Arabic text.
 You can access the KHATT dataset [here](https://khatt.ideas2serve.net/).
 
